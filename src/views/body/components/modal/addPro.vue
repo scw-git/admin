@@ -92,10 +92,9 @@ export default {
   },
   methods: {
     verifyNum(e) {
-      if (e.keyCode < 48 || e.keyCode > 57) {
+      if (!(e.keyCode <= 57 && e.keyCode >= 48) && e.keyCode != 8) {
         e.returnValue = false;
       }
-      console.log(e);
     },
     uploadImg(res) {
       this.fileList = res.fileList;
@@ -131,7 +130,6 @@ export default {
         //所以要添加recommend属性，把其他的都清空。其他是必填
         this.formData = { recommend: false };
         this.defaultFileList = []; //清除回显图片
-        console.log("open", this.formData);
       }
       this.visible = true;
     },
@@ -172,7 +170,6 @@ export default {
         if (valid) {
           this.getImgUrl();
           let params = { ...this.formData, time: this.getDate() };
-          console.log("params", params);
           this.$http.addProduct(params).then(res => {
             if (res.status == 200) {
               this.$message.success("添加成功");

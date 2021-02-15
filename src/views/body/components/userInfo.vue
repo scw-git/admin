@@ -4,7 +4,12 @@
       return index}">
       <a-table-column title="用户名" data-index="userName"></a-table-column>
       <a-table-column title="密码" data-index="pw"></a-table-column>
-      <a-table-column title="性别" data-index="gender"></a-table-column>
+      <a-table-column title="性别">
+        <template slot-scope="record">
+          <span v-if="record.gender==1">男</span>
+          <span v-else>女</span>
+        </template>
+      </a-table-column>
       <a-table-column title="联系方式" data-index="myPhone"></a-table-column>
       <a-table-column title="操作" key="action">
         <!-- 如果设置了唯一的dataIndex可以忽略key -->
