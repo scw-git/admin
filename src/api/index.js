@@ -26,6 +26,10 @@ export default {
     updateProduct: params => http.put('/product', params),
     deleteProduct: params => http.delete('/product', params),
 
+    getOrder: () => http.get('/getOrder'),//获取订单列表
+
     getUsers: () => http.get('/user'),
-    delUser: (params) => http.delete('/delUser', params)
+    delUser: (params) => http.delete('/delUser', params),
+    searchProduct: (params) => http.get('/searchProduct', params),//搜索商品接口
+
 }

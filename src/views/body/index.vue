@@ -11,10 +11,13 @@
           <a-icon type="user" />用户列表管理
         </a-menu-item>
         <a-menu-item key="productType">
-          <a-icon type="shopping" />商品类型管理
+          <a-icon type="container" />商品类型管理
         </a-menu-item>
         <a-menu-item key="productLists">
-          <a-icon type="unordered-list" />商品列表管理
+          <a-icon type="shopping" />商品列表管理
+        </a-menu-item>
+        <a-menu-item key="orderLists">
+          <a-icon type="unordered-list" />订单列表管理
         </a-menu-item>
       </a-menu>
     </div>

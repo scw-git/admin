@@ -2,6 +2,14 @@
   <div class="product-list">
     <div class="add-type" style="margin-bottom:10px;">
       <a-button type="primary" @click="addPro">新增</a-button>
+      <a-col :span="10">
+        <span style="margin-left:50px;">筛选：</span>
+        <a-select style="width:200px;" defaultValue @change="handleChange">
+          <a-select-option value>全部</a-select-option>
+          <a-select-option v-for="(item,i) in type" :key="i" :value="item.type">{{item.type}}</a-select-option>
+        </a-select>
+      </a-col>
+      <a-input-search placeholder="input search text" enter-button @search="onSearch" />
     </div>
     <a-table :data-source="tableData" bordered :rowKey="(record,index)=>{
       return index}">
@@ -36,13 +44,33 @@ export default {
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      type: [] //类型
     };
   },
   created() {
     this.getProductLists();
+    this.getType();
   },
   methods: {
+    onSearch(value) {
+      let params = {
+        searchValue: value
+      };
+      this.$http.searchProduct({ params }).then(res => {
+        this.tableData = res.data;
+        // console.log(res);
+      });
+    },
+    handleChange(value) {
+      this.getProductLists(value);
+    },
+    // 获取类型
+    getType() {
+      this.$http.getProductType().then(res => {
+        this.type = res.data;
+      });
+    },
     edi(record) {
       this.$refs.addPro.showModal(record);
     },
@@ -70,8 +98,11 @@ export default {
       this.$refs.addPro.showModal();
     },
     //获取商品
-    getProductLists() {
-      this.$http.getProduct().then(res => {
+    getProductLists(value) {
+      let params = {
+        type: value
+      };
+      this.$http.getProduct({ params }).then(res => {
         this.tableData = res.data.data;
       });
     }
@@ -79,4 +110,10 @@ export default {
 };
 </script>
 <style scoped lang='scss'>
+.product-list {
+  .add-type {
+    display: flex;
+    // flex-shrink: 1;
+  }
+}
 </style>
